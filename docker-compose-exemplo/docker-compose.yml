@@ -1,0 +1,22 @@
+version: "3.9"
+
+networks:
+  compose-bridge: 
+    driver: bridge
+
+services: 
+  mongodb: # pode ser qualquer nome, não precisa necessarimente ser o nome da imagem do serviço
+    image: mongo:4.4.6
+    container_name: meu-mongo
+    networks: 
+      - compose-bridge
+
+  alurabooks:
+    image: aluradocker/alura-books:1.0
+    container_name: alurabooks
+    networks:
+      - compose-bridge
+    ports:
+      - 3000:3000 # porta-do-container:porta-do-host
+    depends_on: 
+      - mongodb
